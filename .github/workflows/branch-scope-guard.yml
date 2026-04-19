@@ -1,0 +1,58 @@
+name: Branch Scope Guard
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate changed files stay in branch scope
+        shell: bash
+        run: |
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          echo "Branch: $BRANCH"
+
+          if [[ "$BRANCH" =~ ^group-g([0-9]{2})$ ]]; then
+            GNUM="${BASH_REMATCH[1]}"
+            PREFIX="G${GNUM}_"
+          elif [[ "$BRANCH" == "main" ]]; then
+            echo "main branch: scope guard skipped"
+            exit 0
+          else
+            echo "Non-group branch detected; skipping strict path check"
+            exit 0
+          fi
+
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+            HEAD="${{ github.sha }}"
+          fi
+
+          if [[ -z "$BASE" || "$BASE" == "0000000000000000000000000000000000000000" ]]; then
+            BASE=$(git rev-list --max-parents=0 HEAD)
+          fi
+
+          CHANGED=$(git diff --name-only "$BASE" "$HEAD")
+          echo "Changed files:"
+          echo "$CHANGED"
+
+          while IFS= read -r f; do
+            [[ -z "$f" ]] && continue
+            if [[ "$f" == .github/* || "$f" == scripts/* || "$f" == README.md ]]; then
+              continue
+            fi
+            if [[ "$f" != ${PREFIX}* ]]; then
+              echo "ERROR: $f is outside allowed scope ${PREFIX}* for branch $BRANCH"
+              exit 1
+            fi
+          done <<< "$CHANGED"
+
+          echo "Scope check passed for $BRANCH"
