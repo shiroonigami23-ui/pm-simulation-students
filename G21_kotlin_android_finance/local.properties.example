@@ -1,0 +1,8 @@
+# local.properties — DO NOT commit this file
+sdk.dir=/path/to/Android/Sdk
+
+# Robinhood Markets Data API key
+# Obtain from: https://robinhood.com/developer
+# Free tier: delayed quotes, 500 req/day
+# Business tier (required for real-time streaming): $300/month
+ROBINHOOD_API_KEY=your_api_key_here
