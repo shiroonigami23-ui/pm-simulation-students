@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+{% block title %}New Post{% endblock %}
+{% block content %}
+<h1 class="mb-3">New Post</h1>
+<form method="post" enctype="multipart/form-data" style="max-width:600px">
+{% csrf_token %}{{ form.as_p }}
+<button class="btn btn-primary">Publish</button>
+<a href="/" class="btn btn-secondary ms-2">Cancel</a>
+</form>
+{% endblock %}

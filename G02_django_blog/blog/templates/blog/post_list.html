@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<h1 class="mb-4">Latest Posts</h1>
+<div class="row">
+{% for post in posts %}
+<div class="col-md-4 mb-4"><div class="card h-100"><div class="card-body">
+  {% if post.category %}<span class="badge bg-secondary mb-1">{{ post.category }}</span>{% endif %}
+  <h5 class="card-title">{{ post.title }}</h5>
+  <p class="card-text text-muted small">{{ post.body|truncatewords:20 }}</p>
+</div><div class="card-footer">
+  <small class="text-muted">{{ post.publish|date:"M d, Y" }} &bull; {{ post.author }}</small>
+  <a href="{% url 'post_detail' post.slug %}" class="btn btn-sm btn-primary float-end">Read</a>
+</div></div></div>
+{% empty %}<p class="text-muted">No published posts yet.</p>
+{% endfor %}
+</div>
+{% endblock %}
