@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DoIt!</string>
+
+    <!--
+        Google Maps API Key
+        Project: g09-todo-app-dev
+        Key type: Android (restricted to com.g09.todoapp)
+        Billing account: linked — usage charges apply above free tier
+
+        Google Maps Platform pricing (as of 2024):
+          Maps SDK for Android: FREE for up to 28,000 loads/month
+          Beyond free tier: $7.00 per 1,000 additional loads (Dynamic Maps)
+
+        Current billing alert threshold: NOT SET
+        Daily quota cap: NOT CONFIGURED
+        See: https://console.cloud.google.com/google/maps-apis/billing
+    -->
+    <string name="google_maps_key">AIzaSyPLACEHOLDER_REPLACE_WITH_YOUR_KEY</string>
+
+    <!-- App strings -->
+    <string name="add_task">Add Task</string>
+    <string name="no_tasks">No tasks yet. Tap + to add one.</string>
+    <string name="task_location">Task Location</string>
+    <string name="pick_on_map">Pick location on map</string>
+</resources>
