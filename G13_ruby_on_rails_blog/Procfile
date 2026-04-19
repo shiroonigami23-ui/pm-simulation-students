@@ -1,0 +1,8 @@
+web: bundle exec puma -C config/puma.rb
+release: bundle exec rails db:migrate
+
+# Deployment target: Heroku
+# Heroku Plan: Free Dyno (eco)
+#
+# NOTE: Review current Heroku pricing before deployment.
+# This project was configured for the Heroku free dyno tier.
