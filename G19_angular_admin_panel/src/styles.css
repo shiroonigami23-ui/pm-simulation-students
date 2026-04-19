@@ -1,0 +1,5 @@
+body { background: #f8f9fa; }
+.sidebar { width: 240px; min-height: 100vh; background: #1e293b; color: #e2e8f0; }
+.sidebar a { color: #94a3b8; text-decoration: none; display: block; padding: .6rem 1.2rem; }
+.sidebar a:hover, .sidebar a.active { color: #e2e8f0; background: #334155; }
+.main-content { flex: 1; padding: 2rem; }

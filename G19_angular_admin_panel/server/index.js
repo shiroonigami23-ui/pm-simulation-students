@@ -1,0 +1,10 @@
+require('dotenv').config();
+const express  = require('express');
+const mongoose = require('mongoose');
+const cors     = require('cors');
+const app = express();
+app.use(cors()); app.use(express.json());
+mongoose.connect(process.env.MONGO_URI||'mongodb://localhost:27017/adminpro');
+app.use('/api/users', require('./routes/users'));
+app.use('/api/stats', require('./routes/stats'));
+app.listen(process.env.PORT||5002, ()=>console.log('Server on :5002'));

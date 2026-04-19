@@ -1,0 +1,4 @@
+{
+  "name":"g19-server","version":"1.0.0",
+  "dependencies":{"express":"^4.18.2","mongoose":"^7.3.0","cors":"^2.8.5","dotenv":"^16.1.4"}
+}
