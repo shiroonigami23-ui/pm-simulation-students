@@ -1,0 +1,11 @@
+require('dotenv').config();
+const express  = require('express');
+const mongoose = require('mongoose');
+const cors     = require('cors');
+const app = express();
+app.use(cors()); app.use(express.json());
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/vueshop');
+app.use('/api/products',  require('./routes/products'));
+app.use('/api/cart',      require('./routes/cart'));
+app.use('/api/checkout',  require('./routes/checkout'));
+app.listen(process.env.PORT || 5001, () => console.log('Server on :5001'));
